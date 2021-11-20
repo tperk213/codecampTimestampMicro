@@ -26,12 +26,14 @@ console.log(mySecondDate.getTime());
 
 app.get("/api/:date?", (req, res) => {
   var newDate;
-  //Assign newDate to param or now if no param
-  if(!req.params.date){
-    newDate = new Date().now();  
-  }
+  
   
   newDate = new Date(req.params.date);
+
+  //Assign newDate to param or now if no param
+  if(!req.params.date){
+    newDate = new Date();  
+  }
   
   //check if param valid
   if(newDate.toString() === "Invalid Date"){  
