@@ -22,8 +22,9 @@ app.get("/api/:date?", (req, res) => {
   //check for valid date?
   // get unix date
   //return json object with unix timestamp in ms of the date
+  var unixTime = req.params.date.getTime();
   res.json({
-    unix: req.params.date
+    unix: unixTime
   });
 });
 
