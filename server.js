@@ -22,12 +22,30 @@ var myDate = new Date();
 var mySecondDate = new Date(myDate.toString());
 console.log(mySecondDate.getTime());
 
+
+
 app.get("/api/:date?", (req, res) => {
-  console.log(req.params.date);
-  //check for valid date?
-  // get unix date
-  //return json object with unix timestamp in ms of the date
-  var newDate = new Date(req.params.date);
+  var newDate;
+  //Assign newDate to param or now if no param
+  if(!req.params.date){
+    newDate = new Date().now();  
+  }
+  
+  newDate = new Date(req.params.date);
+  
+  //check if param valid
+  if(newDate.toString() === "Invalid Date"){  
+    //try parsing param is int
+    newDate = new Date(parseInt(req.params.date));
+  }
+  //check again and exit if still invalid
+  if(newDate.toString() === "Invalid Date"){
+    res.json({
+      error: "Invalid Date"
+    });
+    return
+  }
+  
   var millisecondsTime = newDate.getTime();
   var utcString = newDate.toUTCString();
   res.json({
@@ -35,6 +53,8 @@ app.get("/api/:date?", (req, res) => {
     utc: utcString
   });
 });
+
+
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
@@ -44,6 +64,7 @@ app.get("/api/hello", function (req, res) {
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var port = process.env.PORT || 3000
+var listener = app.listen(port, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
