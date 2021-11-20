@@ -18,6 +18,14 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api/:date?", (req, res) => {
+  //check for valid date?
+  // get unix date
+  //return json object with unix timestamp in ms of the date
+  res.json({
+    unix: req.params.date
+  });
+});
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
