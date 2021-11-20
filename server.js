@@ -29,8 +29,10 @@ app.get("/api/:date?", (req, res) => {
   //return json object with unix timestamp in ms of the date
   var newDate = new Date(req.params.date);
   var millisecondsTime = newDate.getTime();
+  var utcString = newDate.toUTCString();
   res.json({
-    unix: millisecondsTime
+    unix: millisecondsTime,
+    utc: utcString
   });
 });
 
