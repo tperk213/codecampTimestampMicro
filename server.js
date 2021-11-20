@@ -18,13 +18,19 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+var myDate = new Date();
+var mySecondDate = new Date(myDate.toString());
+console.log(mySecondDate.getTime());
+
 app.get("/api/:date?", (req, res) => {
+  console.log(req.params.date);
   //check for valid date?
   // get unix date
   //return json object with unix timestamp in ms of the date
-  var unixTime = req.params.date.getTime();
+  var newDate = new Date(req.params.date);
+  var millisecondsTime = newDate.getTime();
   res.json({
-    unix: unixTime
+    unix: millisecondsTime
   });
 });
 
